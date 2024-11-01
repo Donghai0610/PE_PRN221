@@ -1,0 +1,69 @@
+﻿<Window x:Class="Q1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Q1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="1000">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <ComboBox x:Name="UserComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="10" 
+                  SelectionChanged="UserComboBox_SelectionChanged" DisplayMemberPath="Username" SelectedValuePath="UserId"/>
+        <DataGrid x:Name="ReviewsDataGrid" AutoGenerateColumns="False" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,40,10,150" 
+                  SelectionChanged="ReviewsDataGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="CourseId" Binding="{Binding Course.CourseId}" Width="*"/>
+                <DataGridTextColumn Header="Title" Binding="{Binding Course.Title}" Width="*"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding Course.Description}" Width="*"/>
+                <DataGridTextColumn Header="Rating" Binding="{Binding Rating}" Width="Auto"/>
+                <DataGridTextColumn Header="Review" Binding="{Binding ReviewText}" Width="*"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding ReviewDate}" Width="Auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Content="CourseId" Grid.Row="0" Grid.Column="0" Margin="5"/>
+                <TextBox x:Name="CourseIdTextBox" Width="150" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Left"/>
+
+                <Label Content="CourseTitle" Grid.Row="1" Grid.Column="0" Margin="5"/>
+                <TextBox x:Name="CourseTitleTextBox" Width="150" Grid.Row="1" Grid.Column="1" Margin="5" HorizontalAlignment="Left"/>
+
+                <Label Content="Description" Grid.Row="2" Grid.Column="0" Margin="5"/>
+                <TextBox x:Name="DescriptionTextBox" Width="150" Grid.Row="2" Grid.Column="1" Margin="5" HorizontalAlignment="Left"/>
+
+                <Label Content="Rating" Grid.Row="3" Grid.Column="0" Margin="5"/>
+                <TextBox x:Name="RatingTextBox" Width="150" Grid.Row="3" Grid.Column="1" Margin="5" HorizontalAlignment="Left"/>
+
+                <Label Content="ReviewText" Grid.Row="4" Grid.Column="0" Margin="5"/>
+                <TextBox x:Name="ReviewTextTextBox" Width="150" Grid.Row="4" Grid.Column="1" Margin="5" HorizontalAlignment="Left"/>
+
+                <Label Content="ReviewDate" Grid.Row="5" Grid.Column="0" Margin="5"/>
+                <DatePicker x:Name="ReviewDatePicker" Width="150" Grid.Row="5" Grid.Column="1" Margin="5" HorizontalAlignment="Left"/>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="5">
+                    <Button x:Name="EditButton" Content="Edit" Width="100" Margin="5" Click="EditButton_Click"/>
+                    <Button x:Name="RemoveButton" Content="Remove" Width="100" Margin="5" HorizontalAlignment="Left" Click="RemoveButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>
