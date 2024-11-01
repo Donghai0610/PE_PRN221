@@ -1,0 +1,124 @@
+﻿<Window x:Class="Q1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Q1"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        Height="650"
+        Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <local:BooleanToCheckedConverter x:Key="BooleanToCheckedConverter" />
+    </Window.Resources>
+    <Grid>
+        <DockPanel VerticalAlignment="Top"
+                   Margin="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="7*" />
+                </Grid.RowDefinitions>
+                <StackPanel Background="LightBlue"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Left"
+                            Width="400">
+                    <Label Name="lbTitle"
+                           Foreground="Red"
+                           FontWeight="DemiBold"
+                           FontSize="20"
+                           Content="Add directors" />
+
+                    <Label Name="lbDirectorName"
+                           Content="Director Name" />
+                    <TextBox Name="txtDirectorName"
+                             HorizontalAlignment="Stretch"
+                             Height="25"
+                             Text="{Binding Path=Name, Mode=OneWay}"
+                             DataContext="{Binding ElementName=lvDirectors, Path=SelectedItem}" />
+
+                    <Label Name="lbGender"
+                           Content="Gender" />
+                    <DockPanel>
+                        <RadioButton Name="rdGenderMale"
+                                     Content="Male"
+                                     IsChecked="{Binding Path=Male, Converter={StaticResource BooleanToCheckedConverter}, ConverterParameter=True}"
+                                     DataContext="{Binding ElementName=lvDirectors, Path=SelectedItem}" />
+                        <RadioButton Name="rdGenderFemale"
+                                     Content="FeMale"
+                                     IsChecked="{Binding Path=Male, Converter={StaticResource BooleanToCheckedConverter}, ConverterParameter=True}"
+                                     DataContext="{Binding ElementName=lvDirectors, Path=SelectedItem}" />
+                    </DockPanel>
+
+                    <Label Name="lbDate"
+                           Content="Date of birth" />
+                    <DatePicker Name="dtpDate"
+                                Text="{Binding Path=Dob, Mode=OneWay}"
+                                DataContext="{Binding ElementName=lvDirectors, Path=SelectedItem}" />
+
+                    <Label Name="lbNationality"
+                           Content="Nationality" />
+                    <ComboBox Name="cboNationality"
+                              HorizontalAlignment="Stretch"
+                              Height="25"
+                              Text="{Binding Path=Nationality, Mode=OneWay}"
+                              DataContext="{Binding ElementName=lvDirectors, Path=SelectedItem}" />
+
+                    <Label Name="lbDescription"
+                           Content="Description" />
+                    <TextBox Name="txtDescription"
+                             HorizontalAlignment="Stretch"
+                             Height="25"
+                             Text="{Binding Path=Description, Mode=OneWay}"
+                             DataContext="{Binding ElementName=lvDirectors, Path=SelectedItem}" />
+
+                </StackPanel>
+                <StackPanel Grid.Row="1"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Left">
+                    <Button x:Name="btnAdd"
+                            Margin="10"
+                            Width="110"
+                            Content="Add To Below List"
+                            Click="btnAdd_Click" />
+                    <Button x:Name="btnImport"
+                            Margin="10"
+                            Width="110"
+                            Content="Import From File"
+                            Click="btnImport_Click" />
+                    <Button x:Name="btnSave"
+                            Margin="10"
+                            Width="110"
+                            Content="SaveToDatabase"
+                            Click="btnSave_Click" />
+                </StackPanel>
+                <ListView Grid.Row="2"
+                          Name="lvDirectors"
+                          Width="Auto"
+                          Height="250">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="DirectorName"
+                                            Width="100"
+                                            DisplayMemberBinding="{Binding Path=Name }" />
+                            <GridViewColumn Header="Gender"
+                                            Width="100"
+                                            DisplayMemberBinding="{Binding Path=Male }" />
+                            <GridViewColumn Header="DateOfBirth"
+                                            Width="100"
+                                            DisplayMemberBinding="{Binding Path=Dob, StringFormat='MM/dd/yyyy'}" />
+                            <GridViewColumn Header="Nationality"
+                                            Width="100"
+                                            DisplayMemberBinding="{Binding Path=Nationality}" />
+                            <GridViewColumn Header="Description"
+                                            Width="250"
+                                            DisplayMemberBinding="{Binding Path=Description}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</Window>
