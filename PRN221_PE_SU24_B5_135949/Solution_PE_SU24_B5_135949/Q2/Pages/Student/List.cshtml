@@ -1,0 +1,47 @@
+﻿@page
+@model Q2.Pages.Student.ListModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+}
+
+<form method="get">
+   <div>
+        <label>Major</label>
+        <select name="MajorCode"> <!-- Use 'name' attribute directly -->
+            @foreach(var major in Model.Majors)
+            {
+                <option value="@major.MajorCode">@major.MajorName</option>
+            }
+        </select>
+
+        <label>Gender</label>
+        <select name="Gender"> <!-- Use 'name' attribute directly -->
+            <option value="1" >Male</option>
+            <option value="0">Female</option>
+        </select>
+    </div>
+
+    <div>
+        <label>Sort By:</label>
+        <input type="radio" name="SortBy" value="StudentName"  /> Student Name
+        <input type="radio" name="SortBy" value="StudentId" /> Student ID
+        <input type="radio" name="SortBy" value="StudentDob"  /> Student DOb
+    </div>
+
+    <button type="submit">Filter</button>
+
+
+</form>
+
+
+<h1>List of Students</h1>
+
+@foreach(var student in Model.Students)
+{
+    <div>
+        <span>@student.StudentId-</span>
+        <span>@student.FullName-</span>
+        <span>@student.MajorName-</span>
+        <span>@student.Dob.ToString("MM/dd/yyyy")</span>
+    </div>
+}
