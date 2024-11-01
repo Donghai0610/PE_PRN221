@@ -1,0 +1,49 @@
+﻿@page
+@model Q2.Pages.Student.ListModel
+@using Models
+@{
+	ViewData["Title"] = "Student List";
+}
+
+<div>
+	<form method="get">
+		<div>
+			<label>Major</label>
+			<select name="MajorCode">
+				@foreach (Major major in Model.majors)
+				{
+					<option value="@major.MajorCode" selected="@(major.MajorCode == Model.MajorCode)">@major.MajorName</option>
+				}
+			</select>
+
+			<label>Gender</label>
+			<select name="Gender">
+				<option value="0" selected="@(Model.Gender == 0 ? true : false)">Male</option>
+				<option value="1" selected="@(Model.Gender == 1 ? true : false)">Female</option>
+			</select>
+		</div>
+		<div>
+			<label>Sort by: </label>
+
+			<input type="radio" name="Sort" id="studentName" checked="@(Model.Sort == "name")" value="name" />
+			<label for="studentName">StudentName</label>
+
+			<input type="radio" name="Sort" id="studentId" checked="@(Model.Sort == "id")" value="id" />
+			<label for="studentId">StudentId</label>
+
+			<input type="radio" name="Sort" id="studentDob" checked="@(Model.Sort == "dob")" value="dob" />
+			<label for="studentDob">StudentDob</label>
+		</div>
+
+		<div>
+			<button type="submit">Filter</button>
+		</div>
+	</form>
+	<h1>List of Students</h1>
+	@foreach (Models.Student student in Model.students)
+	{
+		<div>
+			@($"{student.StudentId} - {student.FullName} - {student.Major} - {student.Dob?.ToString("MM/dd/yyyy")}")
+		</div>
+	}
+</div>
