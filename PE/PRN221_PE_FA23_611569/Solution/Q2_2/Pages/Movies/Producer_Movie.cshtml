@@ -1,0 +1,73 @@
+﻿@page
+@model Q2_2.Pages.Movies.Producer_MovieModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Q2_2.Models
+@{
+    ViewData["Title"] = "List of Movies";
+}
+
+<h1>List of movies</h1>
+
+<div class="row">
+    <div class="col-md-2">
+        <label style="font-weight: bold">Producers</label>
+        @foreach (var d in Model.Directors)
+        {
+            <div>
+                <a asp-page="./Producer_Movie" asp-route-directorId="@d.Id"
+                   class="@(Model.SelectedDirectorId == d.Id ? "font-weight-bold text-primary" : "")">
+                    @d.Name
+                </a>
+            </div>
+        }
+    </div>
+    <div class="col-md-10">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>Title</th>
+                    <th>ReleaseDate</th>
+                    <th>Description</th>
+                    <th>Director</th>
+                    <th>Producer</th>
+                    <th>Genres</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var m in Model.Movies)
+                {
+                    <tr>
+                        <td>@m.Title</td>
+                        <td>@m.Year</td> <!-- Đổi `Year` thành `ReleaseDate` -->
+                        <td>@m.Description</td>
+                        <td>@m.Director.Name</td>
+                        <th>@m.Director</th>
+                        <td>
+                            @foreach (var g in m.Genres)
+                            {
+                                <span>@g.Title</span>
+                                <br />
+                            }
+                        </td>
+                        <td>
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@m.Id" style="display:inline">
+                                <button type="submit" class="btn btn-link text-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .font-weight-bold {
+        font-weight: bold;
+    }
+
+    .text-primary {
+        color: blue;
+    }
+</style>

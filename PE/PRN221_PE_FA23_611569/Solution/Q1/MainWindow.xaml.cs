@@ -43,16 +43,24 @@ namespace Q1
 
 		private void btnAdd_Click(object sender, RoutedEventArgs e)
 		{
-			Director director = new Director
+			try
 			{
-				Name = txtDirectorName.Text,
-				Dob = dtpDate.SelectedDate,
-				Male = rdGenderMale.IsChecked == true,
-				Description = txtDescription.Text,
-				Nationality = cboNationality.SelectedValue.ToString()
-			};
-			directors.Add(director);
-			lvDirectors.Items.Add(director);
+                Director director = new Director
+                {
+                    Name = txtDirectorName.Text,
+                    Dob = dtpDate.SelectedDate,
+                    Male = rdGenderMale.IsChecked == true,
+                    Description = txtDescription.Text,
+                    Nationality = cboNationality.SelectedValue.ToString()
+                };
+                directors.Add(director);
+                lvDirectors.Items.Add(director);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Add Director");
+            }
+            
 		}
 
 		private void btnImport_Click(object sender, RoutedEventArgs e)

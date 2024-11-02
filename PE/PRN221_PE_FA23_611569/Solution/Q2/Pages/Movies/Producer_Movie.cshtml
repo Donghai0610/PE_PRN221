@@ -25,6 +25,7 @@
 						<th>Year</th>
 						<th>Description</th>
 						<th>Director</th>
+						<th>Producer</th>
 						<th>Genre</th>
 						<th></th>
 					</tr>
@@ -36,6 +37,7 @@
 							<td>@m.Title</td>
 							<td>@m.Year</td>
 							<td>@m.Description</td>
+							<td>@m.Director.Name</td>
 							<td>@m.Director.Name</td>
 							<td>
 								@foreach(Genre g in m.Genres)
