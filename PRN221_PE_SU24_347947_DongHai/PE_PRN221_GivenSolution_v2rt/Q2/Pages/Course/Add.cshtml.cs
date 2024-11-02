@@ -1,17 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Q2_2.Models;
+using Q2.Models;
 
-namespace Q2_2.Pages.Course
+namespace Q2.Pages.Course
 {
     public class AddModel : PageModel
     {
-
         public List<Instructor> Instructors { get; set; }
         public List<CourseCategory> Categories { get; set; }
         [BindProperty]
-        public Models.Course Course { get; set; }
+        public Models.Course NewCourse { get; set; }
 
         [BindProperty]
         public List<int> SelectedCategoryIds { get; set; }
@@ -34,15 +32,15 @@ namespace Q2_2.Pages.Course
                     Instructors = _context.Instructors.ToList();
                     return Page();
                 }
-                Course.Categories = _context.CourseCategories.Where(c => SelectedCategoryIds.Contains(c.CategoryId)).ToList();
-                _context.Courses.Add(Course);
+                NewCourse.Categories = _context.CourseCategories.Where(c => SelectedCategoryIds.Contains(c.CategoryId)).ToList();
+                _context.Courses.Add(NewCourse);
                 _context.SaveChanges();
                 return RedirectToPage();
 
             }
 
         }
+
+       
     }
 }
-
-

@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Configuration;
 
-namespace Q1.Models
+namespace Q2.Models
 {
     public partial class PE_PRN_24SumB1Context : DbContext
     {
@@ -28,11 +27,10 @@ namespace Q1.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-                string ConnectionStr = config.GetConnectionString("DB");
-
-                optionsBuilder.UseSqlServer(ConnectionStr);
+                var ConnectionString = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetConnectionString("DefaultConnection");
+                optionsBuilder.UseSqlServer(ConnectionString);
             }
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -55,17 +53,17 @@ namespace Q1.Models
                 entity.HasOne(d => d.Instructor)
                     .WithMany(p => p.Courses)
                     .HasForeignKey(d => d.InstructorId)
-                    .HasConstraintName("FK__Courses__instruc__3B75D760");
+                    .HasConstraintName("FK__Courses__instruc__286302EC");
 
                 entity.HasMany(d => d.Categories)
                     .WithMany(p => p.Courses)
                     .UsingEntity<Dictionary<string, object>>(
                         "CourseCategoryAssignment",
-                        l => l.HasOne<CourseCategory>().WithMany().HasForeignKey("CategoryId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__CourseCat__categ__44FF419A"),
-                        r => r.HasOne<Course>().WithMany().HasForeignKey("CourseId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__CourseCat__cours__440B1D61"),
+                        l => l.HasOne<CourseCategory>().WithMany().HasForeignKey("CategoryId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__CourseCat__categ__31EC6D26"),
+                        r => r.HasOne<Course>().WithMany().HasForeignKey("CourseId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__CourseCat__cours__30F848ED"),
                         j =>
                         {
-                            j.HasKey("CourseId", "CategoryId").HasName("PK__CourseCa__D24A193561F721D1");
+                            j.HasKey("CourseId", "CategoryId").HasName("PK__CourseCa__D24A1935368D2516");
 
                             j.ToTable("CourseCategoryAssignments");
 
@@ -78,7 +76,7 @@ namespace Q1.Models
             modelBuilder.Entity<CourseCategory>(entity =>
             {
                 entity.HasKey(e => e.CategoryId)
-                    .HasName("PK__CourseCa__D54EE9B47CE9B4CE");
+                    .HasName("PK__CourseCa__D54EE9B41F7F1AA2");
 
                 entity.Property(e => e.CategoryId).HasColumnName("category_id");
 
@@ -91,7 +89,7 @@ namespace Q1.Models
             modelBuilder.Entity<Enrollment>(entity =>
             {
                 entity.HasKey(e => new { e.UserId, e.CourseId })
-                    .HasName("PK__Enrollme__414FD875E24F1FB4");
+                    .HasName("PK__Enrollme__414FD875CA4841D7");
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
@@ -105,13 +103,13 @@ namespace Q1.Models
                     .WithMany(p => p.Enrollments)
                     .HasForeignKey(d => d.CourseId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Enrollmen__cours__3F466844");
+                    .HasConstraintName("FK__Enrollmen__cours__2C3393D0");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Enrollments)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Enrollmen__user___3E52440B");
+                    .HasConstraintName("FK__Enrollmen__user___2B3F6F97");
             });
 
             modelBuilder.Entity<Instructor>(entity =>
@@ -149,12 +147,12 @@ namespace Q1.Models
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.Reviews)
                     .HasForeignKey(d => d.CourseId)
-                    .HasConstraintName("FK__Reviews__course___48CFD27E");
+                    .HasConstraintName("FK__Reviews__course___35BCFE0A");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Reviews)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Reviews__user_id__47DBAE45");
+                    .HasConstraintName("FK__Reviews__user_id__34C8D9D1");
             });
 
             modelBuilder.Entity<User>(entity =>

@@ -1,6 +1,31 @@
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+namespace Q2
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
 
-app.MapGet("/", () => "Hello World!");
+            var builder = WebApplication.CreateBuilder(args);
 
-app.Run();
+            // Add services to the container.
+            builder.Services.AddRazorPages();
+
+            var app = builder.Build();
+
+            // Configure the HTTP request pipeline.
+            if (!app.Environment.IsDevelopment())
+            {
+                app.UseExceptionHandler("/Error");
+            }
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.MapRazorPages();
+
+            app.Run();
+        }
+    }
+}

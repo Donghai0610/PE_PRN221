@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Q1.Models
+namespace Q2.Models
 {
     public partial class Enrollment
     {
