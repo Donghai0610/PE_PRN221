@@ -1,0 +1,55 @@
+﻿@page
+@model Q2.Pages.Movies.Producer_MovieModel
+@using Models
+@{
+	ViewData["Title"] = "Q2";
+}
+
+<div>
+	<h1>List of movies</h1>
+	<div class="row">
+		<div class="col-md-2">
+			<label style="font-weight: bold">Producers</label>
+			@foreach (Director d in Model.directors)
+			{
+				<div>
+					<a asp-page-handler="Filter" asp-route-directorId="@d.Id">@d.Name</a>
+				</div>
+			}
+		</div>
+		<div class="col-md-10">
+			<table class="table">
+				<thead class="thead-light">
+					<tr>
+						<th>Title</th>
+						<th>Year</th>
+						<th>Description</th>
+						<th>Director</th>
+						<th>Genre</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (Movie m in Model.movies)
+					{
+						<tr>
+							<td>@m.Title</td>
+							<td>@m.Year</td>
+							<td>@m.Description</td>
+							<td>@m.Director.Name</td>
+							<td>
+								@foreach(Genre g in m.Genres)
+								{
+									<p>@g.Title</p>
+								}
+							</td>
+							<td>
+								<a asp-page-handler="Delete" asp-route-movieId="@m.Id">Delete</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

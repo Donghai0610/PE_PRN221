@@ -1,0 +1,18 @@
+[
+    {
+        "Id": 1,
+        "Name": "Director Name",
+        "Dob": "1980-05-12T00:00:00",
+        "Description": "Description of director",
+        "Male": true,
+        "Nationality": "USA"
+    },
+    {
+        "Id": 2,
+        "Name": "Another Director",
+        "Dob": "1975-11-20T00:00:00",
+        "Description": "Another description",
+        "Male": false,
+        "Nationality": "UK"
+    }
+]

@@ -1,0 +1,34 @@
+﻿@page
+@model Q2.Pages.Course.AddModel
+@using Models
+@{
+	ViewData["Title"] = "PRN221_Q2";
+}
+
+<div>
+	<form method="post">
+		<h5>Title: </h5>
+		<input type="text" name="course.Title" value="@Model.course?.Title"/>
+		<h5>Description: </h5>
+		<input type="text" name="course.Description" value="@Model.course?.Description" />
+		<h5>Instructor: </h5>
+		<select name="course.InstructorId">
+			@foreach (Instructor i in Model.Instructors)
+			{
+				<option value="@i.InstructorId">
+					@i.Name
+				</option>
+			}
+		</select>
+		<h5>Category: </h5>
+		@foreach (CourseCategory c in Model.Categories)
+		{
+			<input type="checkbox" name="selectedCategories" id="@c.CategoryId" value="@c.CategoryId" />
+			<label for="@c.CategoryId">
+				@c.CategoryName
+			</label>
+			<br />
+		}
+		<button type="submit">Create New Course</button>
+	</form>
+</div>
